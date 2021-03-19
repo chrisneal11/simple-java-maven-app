@@ -33,30 +33,29 @@ pipeline {
                 sh './jenkins/scripts/deliver.sh'
             }
         }
-    }
 //
 //  Create the Docker Image and push it back
 //
-    stage(‘Cloning_Git’) {
-      steps {
-        git ‘https://github.com/chrisneal11/simple-java-maven-app'
-      }
-    }
-    stage(‘Building_Image’) {
-      steps{
-        script {
-          dockerImage = docker.build registry + “:$BUILD_NUMBER”
+        stage(‘Cloning_Git’) {
+            steps {
+                git ‘https://github.com/chrisneal11/simple-java-maven-app'
+            }
+        }    
+        stage(‘Building_Image’) {
+            steps{
+                script {
+                    dockerImage = docker.build registry + “:$BUILD_NUMBER”
+                }
+             }   
         }
-      }
-    }
-    stage(‘Deploy_Image’) {
-      steps{
-        script {
-          docker.withRegistry( ‘’, registryCredential ) {
-            dockerImage.push()
-          }
+        stage(‘Deploy_Image’) {
+            steps{
+                script {
+                    docker.withRegistry( ‘’, registryCredential ) {
+                    dockerImage.push()
+                }   
+            }
         }
-      }
     }
   }
 }
