@@ -34,6 +34,7 @@ pipeline {
             }
         }
     }
+  }
 //
 //  Create the Docker Image and push it back
 //
