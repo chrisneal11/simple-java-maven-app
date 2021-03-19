@@ -37,7 +37,6 @@ pipeline {
 //
 //  Create the Docker Image and push it back
 //
-  stages {
     stage(‘Cloning_Git’) {
       steps {
         git ‘https://github.com/chrisneal11/simple-java-maven-app'
