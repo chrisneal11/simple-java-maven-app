@@ -36,27 +36,12 @@ pipeline {
 //
 //  Create the Docker Image and push it back
 //
-        stage(‘Cloning_Git’) {
-            steps {
+//        stage(‘Cloning_Git’) {
+//            steps {
 //                git ‘https://github.com/chrisneal11/simple-java-maven-app'
-                  git([url: 'https://github.com/SimplilearnDevOpsOfficial/DockerizeJenkins.git' ])
-            }
-        }    
-        stage(‘Building_Image’) {
-            steps{
-                script {
-                    dockerImage = docker.build registry + “:$BUILD_NUMBER”
-                }
-             }   
-        }
-        stage(‘Deploy_Image’) {
-            steps{
-                script {
-                    docker.withRegistry( ‘’, registryCredential ) {
-                    dockerImage.push()
-                }   
-            }
-        }
+//                  git([url: 'https://github.com/SimplilearnDevOpsOfficial/DockerizeJenkins.git' ])
+//            }
+//       }    
     }
   }
 }
