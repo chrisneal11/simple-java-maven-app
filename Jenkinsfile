@@ -38,7 +38,8 @@ pipeline {
 //
         stage(‘Cloning_Git’) {
             steps {
-                git ‘https://github.com/chrisneal11/simple-java-maven-app'
+//                git ‘https://github.com/chrisneal11/simple-java-maven-app'
+                  git 'https://github.com/SimplilearnDevOpsOfficial/DockerizeJenkins.git'
             }
         }    
         stage(‘Building_Image’) {
