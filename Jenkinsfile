@@ -1,31 +1,63 @@
 // Christopher Neal's Project1 Jenkins file
-node {
-  
-  stage('Checkout Source Code') {
-    checkout scm
-  }
+//
+//
+pipeline {
 
-  stage('Create Docker Image') {
-    docker.build("docker_image:${env.BUILD_NUMBER}")
+  environment {
+    registry = “chrisneal11/project1”
+    registryCredential = ‘dockerhub’
+    dockerImage = ‘’
   }
-
-  stage ('Run Application') {
-    try {
-      // Stop existing Container
-      sh 'docker rm docker_container -f'
-      // Start database container here
-      sh "docker run -d --name docker_container docker_image:${env.BUILD_NUMBER}"
-    } 
-	catch (error) {
-    } finally {
-      // Stop and remove database container here
-      
+  agent any
+//
+// Build and test the code
+//
+  stages {
+        stage('Build') {
+            steps {
+                sh 'mvn -B -DskipTests clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
+        }
+        stage('Deliver') {
+            steps {
+                sh './jenkins/scripts/deliver.sh'
+            }
+        }
+    }
+//
+//  Create the Docker Image and push it back
+//
+  stages {
+    stage(‘Cloning Git’) {
+      steps {
+        git ‘https://github.com/chrisneal11/simple-java-maven-app'
+      }
+    }
+    stage(‘Building image’) {
+      steps{
+        script {
+          dockerImage = docker.build registry + “:$BUILD_NUMBER”
+        }
+      }
+    }
+    stage(‘Deploy Image’) {
+      steps{
+        script {
+          docker.withRegistry( ‘’, registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
     }
   }
-  
-//  stage ('Notifications') {
-//    mail body: "Project Execution Completed with status : " + currentBuild.result ,
-//                     subject: 'Project Execution Notification',
-//                     to: 'abc@abc.com'
-//     }
- }
+}
