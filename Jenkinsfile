@@ -10,8 +10,10 @@ pipeline {
 //  }
     stages {
         stage('Create_Docker_Image') {
-          docker.build("docker_image:${env.BUILD_NUMBER}")
-        }
+          steps {
+              docker.build("docker_image:${env.BUILD_NUMBER}")
+            }
+        } 
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
