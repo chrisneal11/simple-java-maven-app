@@ -1,18 +1,14 @@
-// Christopher Neal's Project1 Jenkins file
-//
-//
 pipeline {
-
-  environment {
-    registry = “chrisneal11/project1”
-    registryCredential = ‘dockerhub’
-    dockerImage = ‘’
-  }
-  agent any
-//
-// Build and test the code
-//
-  stages {
+    agent {
+        docker {
+            image 'chrisneal11/project1'
+            args '-v /root/.m2:/root/.m2'
+        }
+    }
+//  stage('Create Docker Image') {
+//    docker.build("docker_image:${env.BUILD_NUMBER}")
+//  }
+    stages {
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
@@ -33,30 +29,5 @@ pipeline {
                 sh './jenkins/scripts/deliver.sh'
             }
         }
-//
-//  Create the Docker Image and push it back
-//
-        stage(‘Cloning_Git’) {
-            steps {
-//                git ‘https://github.com/chrisneal11/simple-java-maven-app'
-                  git([url: 'https://github.com/SimplilearnDevOpsOfficial/DockerizeJenkins.git' ])
-            }
-        }    
-        stage(‘Building_Image’) {
-            steps{
-                script {
-                    dockerImage = docker.build registry + “:$BUILD_NUMBER”
-                }
-             }   
-        }
-        stage(‘Deploy_Image’) {
-            steps{
-                script {
-                    docker.withRegistry( ‘’, registryCredential ) {
-                    dockerImage.push()
-                }   
-            }
-        }
     }
-  }
 }
