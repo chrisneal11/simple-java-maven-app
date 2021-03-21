@@ -9,11 +9,30 @@ pipeline {
 //    docker.build("docker_image:${env.BUILD_NUMBER}")
 //  }
     stages {
-        stage('Create_Docker_Image') {
-          steps {
-              docker.build("docker_image:${env.BUILD_NUMBER}")
-            }
-        } 
+    stage(‘Building_Image’) {
+      steps{
+        script {
+          dockerImage = docker.build registry + “:$BUILD_NUMBER”
+        }
+      }
+    }
+    stage(‘Deploy_Image’) {
+      steps{
+        script {
+          docker.withRegistry( ‘’, registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+
+//   End my paste
+
+
+
+
+
+
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
