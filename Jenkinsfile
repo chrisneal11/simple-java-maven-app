@@ -5,10 +5,13 @@ pipeline {
             args '-v /root/.m2:/root/.m2'
         }
     }
-  stage('Create_Docker_Image') {
-    docker.build("docker_image:${env.BUILD_NUMBER}")
-  }
+//  stage('Create_Docker_Image') {
+//    docker.build("docker_image:${env.BUILD_NUMBER}")
+//  }
     stages {
+        stage('Create_Docker_Image') {
+          docker.build("docker_image:${env.BUILD_NUMBER}")
+        }
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
