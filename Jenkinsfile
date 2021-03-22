@@ -5,22 +5,20 @@ pipeline {
             args '-v /root/.m2:/root/.m2'
         }
     }
-//  stage('Create_Docker_Image') {
-//    docker.build("docker_image:${env.BUILD_NUMBER}")
-//  }
     stages {
-    stage(‘Building_Image’) {
-      steps{
-        script {
-          dockerImage = docker.build registry + “$BUILD_NUMBER”
+       stage(‘Building_Image’) {
+          steps{
+             script {
+//                dockerImage = docker.build registry + “$BUILD_NUMBER”
+                dockerImage = docker.build imagename
+             } 
+           }
         }
-      }
-    }
-    stage(‘Deploy_Image’) {
-      steps{
-        script {
-          docker.withRegistry( ‘’, registryCredential ) {
-            dockerImage.push()
+       stage(‘Deploy_Image’) {
+          steps{
+             script {
+                docker.withRegistry( ‘’, registryCredential ) {
+                dockerImage.push()
           }
         }
       }
