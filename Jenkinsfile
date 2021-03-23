@@ -4,12 +4,12 @@ pipeline {
       imagename = 'chrisneal11/project1'
       registryCredential = 'dockerhub'
       dockerImage = ''
+  } 
+
+   agent any
 
 
-    agent any
-
-
-    stages {
+   stages {
 //  Clone the Git Repository
        stage('Cloning_Git') {
           steps{
