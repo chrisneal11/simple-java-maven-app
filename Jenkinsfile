@@ -17,13 +17,13 @@ pipeline {
           }
        }
 // Build the software from the Git repository
-        stage('Build') {
+        stage('Build_SW') {
            steps {
               sh 'mvn -B -DskipTests clean package'
            }
         }
 // Test the software after building it
-        stage('Test') {
+        stage('Test_SW') {
             steps {
                 sh 'mvn test'
             }   
@@ -34,7 +34,7 @@ pipeline {
             }
         }
 // Deliver the software after testing it
-        stage('Deliver') {
+        stage('Deliver_SW') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
             }
