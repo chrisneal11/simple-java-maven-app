@@ -3,4 +3,4 @@ FROM tomcat:latest
 
 EXPOSE 8888
 
-COPY target/*.jar /usr/local/tomcat/webapps
+COPY ./target/*.jar /usr/local/tomcat/webapps
