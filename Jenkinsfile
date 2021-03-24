@@ -3,7 +3,7 @@
 pipeline {
    
    environment {
-//      imagename = 'chrisneal11/project1'
+      imagename = 'chrisneal11/project1'
       registry = 'chrisneal11/project1'
       registryCredential = 'dockerhub'
       dockerImage = ''
