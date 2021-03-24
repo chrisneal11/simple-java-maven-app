@@ -4,7 +4,7 @@ FROM ubuntu
 ENV DEBIAN_FRONTEND=non-interactive
 # Install dependencies
 RUN apt-get update -y
-RUN apt-get install -y git curl apache2
+RUN apt-get install -y apache2
 
 # Install app
 RUN rm -rf /var/www/html/*
