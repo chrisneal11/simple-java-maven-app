@@ -1,0 +1,6 @@
+web:
+
+   image: chrisneal11/project1:$BUILD_NUMBER
+   restart: always
+   ports:
+    - "8181:80"
