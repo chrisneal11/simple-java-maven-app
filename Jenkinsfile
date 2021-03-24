@@ -3,7 +3,8 @@
 pipeline {
    
    environment {
-      imagename = 'chrisneal11/project1'
+//      imagename = 'chrisneal11/project1'
+      registry = 'chrisneal11/project1'
       registryCredential = 'dockerhub'
       dockerImage = ''
   } 
@@ -45,7 +46,8 @@ pipeline {
         stage('Building_Image') {
             steps {
                script {
-                   dockerImage = docker.build imagename
+                   dockerImage = docker.build registry + ":$BUILD_NUMBER"
+//                   dockerImage = docker.build imagename
                }  
             }
         }
