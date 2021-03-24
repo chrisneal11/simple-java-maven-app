@@ -64,7 +64,7 @@ pipeline {
 // Cleanup unused Docker Images
         stage('Remove_unused_Docker_Images') {
             steps {
-                sh "docker rmi $imagename:$BUILDNUMBER"
+                sh "docker rmi $imagename:$BUILD_NUMBER"
             }
         }
    }
