@@ -67,5 +67,11 @@ pipeline {
                 sh "docker rmi $imagename:$BUILD_NUMBER"
             }
         }
+// Run the new Docker container
+        stage('Deploy the Tomcat Docker Container') {
+            steps {
+                sh "docker-compose up -d"
+            }
+        }
    }
 }
