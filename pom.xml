@@ -24,11 +24,11 @@
         <version>3.3.1</version>
         <configuration>
           <archive>
-            <manifest>
+<!--            <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
               <mainClass>com.mycompany.app.App</mainClass>
-            </manifest>
+            </manifest>   -->
           </archive>
         </configuration>
       </plugin>
