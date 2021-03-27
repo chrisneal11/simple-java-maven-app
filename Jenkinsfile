@@ -37,11 +37,11 @@ pipeline {
             }
         }
 // Deliver the software after testing it
-//        stage('Deliver_SW') {
-//            steps {
-//                sh './jenkins/scripts/deliver.sh'
-//            }
-//        }
+        stage('Deliver_SW') {
+            steps {
+                sh './jenkins/scripts/deliver.sh'
+            }
+        }
 // Build the Docker Image
         stage('Building_Image') {
             steps {
