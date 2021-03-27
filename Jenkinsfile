@@ -52,7 +52,7 @@ pipeline {
             }
         }
 // Deploy the Docker Image
-        stage(‘Deploy_Image’) {
+        stage('Deploy_Image') {
           steps {
              script {
                 docker.withRegistry( '', registryCredential ) {
@@ -68,7 +68,7 @@ pipeline {
             }
         }
 // Run the new Docker container
-        stage('Deploy the Tomcat Docker Container') {
+        stage('Deploy the jdk Docker Container') {
             steps {
                 sh "docker-compose up -d"
             }
